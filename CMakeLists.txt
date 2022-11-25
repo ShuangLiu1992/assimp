@@ -164,13 +164,6 @@ IF (WIN32)
   ENDIF()
 ENDIF()
 
-IF (IOS AND NOT ASSIMP_HUNTER_ENABLED)
-  IF (NOT CMAKE_BUILD_TYPE)
-    SET(CMAKE_BUILD_TYPE "Release")
-  ENDIF ()
-  ADD_DEFINITIONS(-DENABLE_BITCODE)
-ENDIF ()
-
 
 IF (ASSIMP_BUILD_FRAMEWORK)
   SET (BUILD_SHARED_LIBS ON)
@@ -308,17 +301,6 @@ ELSEIF( MINGW )
       SET(CMAKE_CXX_FLAGS "-fvisibility=hidden -fno-strict-aliasing -Wall -Wno-long-long -Wa,-mbig-obj -O3 ${CMAKE_CXX_FLAGS}")
     ENDIF()
     SET(CMAKE_C_FLAGS "-fno-strict-aliasing ${CMAKE_C_FLAGS}")
-ENDIF()
-
-IF ( IOS AND NOT ASSIMP_HUNTER_ENABLED)
-  IF (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode -Og")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode -Og")
-  ELSE()
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fembed-bitcode -O3")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fembed-bitcode -O3")
-    # Experimental for pdb generation
-  ENDIF()
 ENDIF()
 
 IF (ASSIMP_COVERALLS)
